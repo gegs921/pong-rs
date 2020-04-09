@@ -2,7 +2,7 @@ use tetra::graphics::{self, Color, Rectangle, Texture, Text, Font};
 use tetra::input::{self, Key};
 use tetra::math::Vec2;
 use tetra::window;
-use tetra::audio::{self, Sound, SoundInstance};
+use tetra::audio::{self, Sound};
 use tetra::{Context, ContextBuilder, State};
 
 const WINDOW_WIDTH: f32 = 640.0;
@@ -210,7 +210,7 @@ impl State for GameState {
             if let Some(paddle) = paddle_hit {
                 audio::set_master_volume(ctx, 0.4);
                 let hit_sound = Sound::from_file_data(include_bytes!("../resources/hit.mp3"));
-                hit_sound.play(ctx);
+                hit_sound.play(ctx)?;
 
                 // Increase the ball's velocity, then flip it.
                 self.ball.velocity.x = -(self.ball.velocity.x + (BALL_ACC * self.ball.velocity.x.signum()));
